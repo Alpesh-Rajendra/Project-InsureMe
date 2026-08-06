@@ -16,7 +16,7 @@ pipeline {
 
         stage('code-pull') {
             steps {
-                git branch: 'main', url: 'https://github.com/abhipraydhoble/Project-InsureMe.git'
+                git branch: 'main', url: 'https://github.com/Alpesh-Rajendra/Project-InsureMe.git'
             }
         }
 
@@ -57,7 +57,7 @@ pipeline {
         }
      stage('docker-image'){
             steps{
-                sh 'docker build -t abhipraydh96/insure-b31 .'
+                sh 'docker build -t kaali28/insure-b31 .'
                 
             }
         }
@@ -66,14 +66,14 @@ pipeline {
             steps {
        	       withCredentials([usernamePassword(credentialsId: 'docker-cred', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
             	sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-                sh 'docker push abhipraydh96/insure-b31'
+                sh 'docker push kaali28/insure-b31'
                }
             }
         } 
         
         stage('code-deploy'){
             steps{
-                sh 'docker run -itd --name insure-me -p 8089:8081 abhipraydh96/insure-b31'
+                sh 'docker run -itd --name insure-me -p 8089:8081 kaali28/insure-b31'
             }
         }
 
